@@ -1,0 +1,36 @@
+colorscheme industry 
+
+set columns=200
+set lines=125
+set guifont=HGｺﾞｼｯｸM:h12:cSHIFTJIS
+set shiftwidth=4
+
+au GUIEnter * simalt ~x
+autocmd GUIEnter * set transparency=240
+
+" クリップボード
+" set clipboard=unnamed
+
+" スペースを挿入
+nnoremap <C-Space> i <Esc><Right>
+
+" normal モードで改行
+nnoremap <C-j> O<Esc><Down>
+
+" カーソル位置の単語をヤンクした単語に置換
+nnoremap <silent> ciy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+nnoremap <silent> cy   ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+nnoremap gy "0P
+
+" NERDTree    
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
+command! -nargs=? Jq call s:Jq(<f-args>)
+function! s:Jq(...)
+    if 0 == a:0
+        let l:arg = "."
+    else
+        let l:arg = a:1
+    endif
+    execute "%! jq \"" . l:arg . "\""
+endfunction
